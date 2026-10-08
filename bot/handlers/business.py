@@ -36,6 +36,7 @@ def setup_business_router(db: Database) -> Router:
     async def on_business_connection(connection: BusinessConnection) -> None:
         """Handle business connection establishment, updates, or disconnection."""
         status_text = "ENABLED" if connection.is_enabled else "DISABLED"
+<<<<<<< HEAD
         # Telegram endi `can_reply` o'rniga `rights.can_reply` yuboradi (eski maydon None bo'lishi mumkin)
         can_reply = connection.can_reply
         if can_reply is None:
@@ -43,6 +44,11 @@ def setup_business_router(db: Database) -> Router:
         logger.info(
             f"Business connection update: id={connection.id}, user_id={connection.user.id}, "
             f"can_reply={can_reply}, status={status_text}"
+=======
+        logger.info(
+            f"Business connection update: id={connection.id}, user_id={connection.user.id}, "
+            f"can_reply={connection.can_reply}, status={status_text}"
+>>>>>>> e046cb5058410ea38cab523ccbe0ff629d7fe9ed
         )
 
         try:
@@ -50,7 +56,11 @@ def setup_business_router(db: Database) -> Router:
                 connection_id=connection.id,
                 user_id=connection.user.id,
                 user_chat_id=connection.user_chat_id,
+<<<<<<< HEAD
                 can_reply=can_reply,
+=======
+                can_reply=connection.can_reply,
+>>>>>>> e046cb5058410ea38cab523ccbe0ff629d7fe9ed
                 is_enabled=connection.is_enabled,
             )
         except Exception as e:
